@@ -228,48 +228,39 @@
         .fade-in-up.visible { opacity: 1; transform: translateY(0); }
 
         /* ==========================================
-           АДАПТАЦИЯ (МОБИЛЬНЫЕ - КРУПНЫЕ ФОТО)
+           АДАПТАЦИЯ (ИСПРАВЛЕННЫЙ МОБИЛЬНЫЙ ВАРИАНТ)
            ========================================== */
         @media (max-width: 768px) {
+            .intro-section { padding: 40px 20px; }
+            
+            /* Масштабируем весь конверт — flap остаётся идеальным */
+            .envelope-container {
+                transform: scale(0.78);
+                transform-origin: center top;
+            }
+
             .names-section { padding-top: 60px; }
-            .names-bg-blob { width: 400px; height: 400px; filter: blur(30px); }
+            .names-bg-blob { width: 460px; height: 420px; filter: blur(30px); }
             
-            /* Увеличил высоту блока для фото */
-            .cutout-wrapper { height: 420px; margin-bottom: 10px; width: 100%; overflow: hidden; }
+            .cutout-wrapper { height: 480px; margin-bottom: 20px; }
+            .photo-cutout { width: 355px; max-width: 90%; }
             
-            /* ФОТО НА ТЕЛЕФОНЕ: Крупные (380px) и близко */
-            .photo-cutout { width: 380px; max-width: 90%; }
-            
-            /* Отрицательные отступы для наложения */
             .photo-cutout.groom { 
-                margin-right: -100px;
-                transform: translateX(40px) rotate(-3deg); 
-                animation: floatGroomMobile 5s ease-in-out infinite; 
+                margin-right: -55px;
+                transform: translateX(32px) rotate(-4deg); 
             }
             .photo-cutout.bride { 
-                margin-left: -100px;
-                transform: translateX(-40px) rotate(3deg); 
-                animation: floatBrideMobile 5s ease-in-out infinite 0.5s; 
+                margin-left: -55px;
+                transform: translateX(-32px) rotate(3deg); 
             }
             
-            .names-container { margin-top: -30px; }
-            .names { font-size: 52px; }
-            .subtitle { font-size: 16px; letter-spacing: 3px; }
-
-            @keyframes floatGroomMobile {
-                0%, 100% { transform: translateX(40px) translateY(0) rotate(-3deg); }
-                50% { transform: translateX(40px) translateY(-10px) rotate(-2deg); }
-            }
-            @keyframes floatBrideMobile {
-                0%, 100% { transform: translateX(-40px) translateY(0) rotate(3deg); }
-                50% { transform: translateX(-40px) translateY(-12px) rotate(2deg); }
-            }
+            .names-container { margin-top: -25px; }
+            .names { font-size: 62px; }
+            .subtitle { font-size: 18px; letter-spacing: 4px; }
 
             .timeline-item { flex-direction: column; text-align: center; align-items: center; gap: 15px; }
             .timeline::before { display: none; }
-            .envelope { width: 300px; height: 210px; }
-            .envelope-card { width: 270px; height: 420px; top: 140px; }
-            
+
             .orb-1 { width: 90vw; height: 90vw; }
             .orb-2 { width: 80vw; height: 80vw; }
         }
@@ -507,7 +498,9 @@
             flap.style.transform = 'rotateX(180deg) translateX(-50%)';
             flap.style.zIndex = '1';
             setTimeout(() => {
-                card.style.transform = 'translateX(-50%) translateY(-380px)';
+                const isMobile = window.innerWidth <= 768;
+                const translateY = isMobile ? -480 : -380;
+                card.style.transform = `translateX(-50%) translateY(${translateY}px)`;
                 card.style.opacity = '1';
                 card.style.zIndex = '10';
             }, 600);
